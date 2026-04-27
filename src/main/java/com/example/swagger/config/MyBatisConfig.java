@@ -14,15 +14,11 @@ import org.springframework.context.annotation.Configuration;
 
 import javax.sql.DataSource;
 
+@Configuration
+@MapperScan("com.example.swagger.api.dao")
 public class MyBatisConfig {
     @Value("${mybatis.mapper-locations}")
     String mPath;
-
-    @Bean(name = "dataSource")
-    @ConfigurationProperties(prefix = "spring.datasource")
-    public DataSource DataSource() {
-        return DataSourceBuilder.create().build();
-    }
 
     @Bean(name = "SqlSessionFactory")
     public SqlSessionFactory SqlSessionFactory(@Qualifier("dataSource") DataSource DataSource, ApplicationContext applicationContext) throws Exception {
@@ -32,8 +28,4 @@ public class MyBatisConfig {
         return sqlSessionFactoryBean.getObject();
     }
 
-    @Bean(name = "SessionTemplate")
-    public SqlSessionTemplate SqlSessionTemplate(@Qualifier("SqlSessionFactory") SqlSessionFactory firstSqlSessionFactory) {
-        return new SqlSessionTemplate(firstSqlSessionFactory);
-    }
 }
