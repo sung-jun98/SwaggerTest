@@ -23,7 +23,8 @@ public class SecurityConfig {
             "/v3/api-docs/**",
             "/swagger-ui/**",
             "/swagger-ui.html",
-            "/health"
+            "/health",
+            "/api/auth/**"   // 회원가입, 로그인은 인증 없이 접근 가능
     };
 
     @Bean
